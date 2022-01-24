@@ -1,7 +1,4 @@
-from ast import parse
 from collections import deque
-import pdb
-from re import A
 import numpy as np
 
 
@@ -29,6 +26,7 @@ def parse_literal(bin, versions):
             # means this is the last group
             end_literal = True
 
+    # return value
     return bin_to_int(literal_bin)
 
 
@@ -72,34 +70,30 @@ def parse_packet(bin, versions):
     if type_ID == 4:
         # literal value
         value = parse_literal(bin, versions)
-    elif type_ID == 0:
-        # value equal to sum of sub-packet values
+    else:
+        # operator
         values = parse_operator(bin, versions)
-        value = sum(values)
-    elif type_ID == 1:
-        # value equal to product of sub-packet values
-        values = parse_operator(bin, versions)
-        value = np.product(values)
-    elif type_ID == 2:
-        # value equal to minimum of sub-packet values
-        values = parse_operator(bin, versions)
-        value = min(values)
-    elif type_ID == 3:
-        # value equal to maximum of sub-packet values
-        values = parse_operator(bin, versions)
-        value = max(values)
-    elif type_ID == 5:
-        # value equal to 1 if first sub-packet value > second else 0
-        values = parse_operator(bin, versions)
-        value = 1 if values[0] > values[1] else 0
-    elif type_ID == 6:
-        # value equal to 1 if first sub-packet value < second else 0
-        values = parse_operator(bin, versions)
-        value = 1 if values[0] < values[1] else 0
-    elif type_ID == 7:
-        # value equal to 1 if first sub-packet value == second else 0
-        values = parse_operator(bin, versions)
-        value = 1 if values[0] == values[1] else 0
+        if type_ID == 0:
+            # value equal to sum of sub-packet values
+            value = sum(values)
+        elif type_ID == 1:
+            # value equal to product of sub-packet values
+            value = np.product(values)
+        elif type_ID == 2:
+            # value equal to minimum of sub-packet values
+            value = min(values)
+        elif type_ID == 3:
+            # value equal to maximum of sub-packet values
+            value = max(values)
+        elif type_ID == 5:
+            # value equal to 1 if first sub-packet value > second else 0
+            value = 1 if values[0] > values[1] else 0
+        elif type_ID == 6:
+            # value equal to 1 if first sub-packet value < second else 0
+            value = 1 if values[0] < values[1] else 0
+        elif type_ID == 7:
+            # value equal to 1 if first sub-packet value == second else 0
+            value = 1 if values[0] == values[1] else 0
 
     return value
 
