@@ -53,9 +53,7 @@ def day_17():
     n_solutions = 0
 
     for y_vel in yvels:
-        # print("y_vel = {}".format(y_vel))
         for x_vel in xvels:
-            # print("x_vel = {}".format(x_vel))
             max_height = fire([x_vel, y_vel], xrange, yrange)
             if max_height >= 0:
                 n_solutions += 1
